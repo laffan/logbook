@@ -172,6 +172,10 @@ var Logbook = React.createClass({displayName: "Logbook",
     return (
       React.createElement("div", null, 
         React.createElement("h1", null, "Logbook"), 
+        React.createElement("p", null, 
+          "Current : Day : ", this.state.current.day, " | Month : ", this.state.current.month, " | Year :  ", this.state.current.year, " | Location :  ", this.state.current.location
+        ), 
+        React.createElement("hr", null), 
         React.createElement(Nav, {
           navData: this.state.navData, 
           navShow: this.state.navShow, 
@@ -213,14 +217,17 @@ var PrevNext = React.createClass({displayName: "PrevNext",
   render : function() {
     return (
       React.createElement("div", null, 
-        React.createElement("h3", {
+        React.createElement("h4", {
+          className: "prevNext", 
           onClick: this.sendDirection.bind(this, 'prev')
           }, "Prev"), 
-        React.createElement("p", null, "Current is ", this.props.current.day, "-", this.props.current.month, "-", this.props.current.year, " "), 
-        React.createElement("p", null, "Current ID is ", this.props.current.id, " "), 
-        React.createElement("h3", {
+        React.createElement("h4", {
+          className: "prevNext", 
           onClick: this.sendDirection.bind(this, 'next')
-          }, "Next")
+          }, "Next"), 
+
+        React.createElement("div", {className: "u-clearboth"})
+
       )
     );
   }
@@ -289,7 +296,6 @@ var Nav = React.createClass({displayName: "Nav",
   },
 
   render : function() {
-    console.log('=============================');
     return (
       React.createElement("div", null, 
 
@@ -301,6 +307,8 @@ var Nav = React.createClass({displayName: "Nav",
           findMostRecent: this.props.findMostRecent}
           ), 
 
+        React.createElement("div", {className: "u-clearboth"}), 
+
         React.createElement("h2", null, "Months"), 
         React.createElement(NavList, {
           type: "month", 
@@ -308,6 +316,8 @@ var Nav = React.createClass({displayName: "Nav",
           current: this.props.current.month, 
           findMostRecent: this.props.findMostRecent}
           ), 
+
+        React.createElement("div", {className: "u-clearboth"}), 
 
         React.createElement("h2", null, "Locations"), 
         React.createElement(NavList, {
@@ -317,18 +327,20 @@ var Nav = React.createClass({displayName: "Nav",
           findMostRecent: this.props.findMostRecent}
           ), 
 
+        React.createElement("div", {className: "u-clearboth"}), 
+
         React.createElement("h2", null, "Days"), 
         React.createElement(NavList, {
           type: "day", 
           data: this.props.navShow.days, 
           current: this.props.current.day, 
           findMostRecent: this.props.findMostRecent}
-          )
+          ), 
 
+        React.createElement("div", {className: "u-clearboth"})
 
       )
     );
-
 
   }
 });
@@ -362,13 +374,9 @@ var NavList = React.createClass({displayName: "NavList",
   },
 
   render : function() {
-
-    console.log('rendering', this.props.type);
-    console.log(this.props.data);
-
     var items = this.props.data.map(this.renderTemplate)
     return (
-      React.createElement("div", null, 
+      React.createElement("ul", {className: "navList"}, 
         items
       )
     );
