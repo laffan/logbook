@@ -172,9 +172,6 @@ var Logbook = React.createClass({displayName: "Logbook",
     return (
       React.createElement("div", null, 
         React.createElement("h1", null, "Logbook"), 
-        React.createElement("p", null, 
-          "Current : Day : ", this.state.current.day, " | Month : ", this.state.current.month, " | Year :  ", this.state.current.year, " | Location :  ", this.state.current.location
-        ), 
         React.createElement("hr", null), 
         React.createElement(Nav, {
           navData: this.state.navData, 
@@ -268,11 +265,17 @@ var Entry = React.createClass({displayName: "Entry",
   },
 
   renderTemplate: function(entry) {
+
+    var date  = moment({
+                  years : entry.year,
+                  months : entry.month - 1,
+                  date : entry.day
+                }).format("dddd, MMMM Do YYYY");
+
     return(
       React.createElement("div", {hasClass: "entry", key: entry.id}, 
-        React.createElement("p", null, entry.id), 
+        React.createElement("p", null, date), 
         React.createElement("p", null, entry.city, ", ", entry.country), 
-        React.createElement("p", null, entry.day, " - ", entry.month, " - ", entry.year), 
         React.createElement("p", {dangerouslySetInnerHTML: {__html: entry.description}})
       )
     )
@@ -354,6 +357,15 @@ var NavList = React.createClass({displayName: "NavList",
 
   renderTemplate: function(item){
     var type = this.props.type;
+    var displayItem = item[type];
+
+    console.log(displayItem);
+
+
+    // if it's display months, just moment to show the word
+   if ( type === 'month' ) {
+        var displayItem = moment({ months : (displayItem - 1) }).format("MMMM");
+    }
 
     // check to make sure you're comparing strings to strings and
     // ints to ints
@@ -369,7 +381,7 @@ var NavList = React.createClass({displayName: "NavList",
         className: active, 
         key: item[type], 
         onClick: this.findMostRecent.bind(this, item)
-        }, item[type])
+        }, displayItem)
     );
   },
 

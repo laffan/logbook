@@ -174,9 +174,6 @@ var Logbook = React.createClass({
     return (
       <div>
         <h1>Logbook</h1>
-        <p>
-          Current : Day : {this.state.current.day} | Month : {this.state.current.month} | Year :  {this.state.current.year} | Location :  {this.state.current.location}
-        </p>
         <hr></hr>
         <Nav
           navData={this.state.navData}
@@ -270,11 +267,17 @@ var Entry = React.createClass({
   },
 
   renderTemplate: function(entry) {
+
+    var date  = moment({
+                  years : entry.year,
+                  months : entry.month - 1,
+                  date : entry.day
+                }).format("dddd, MMMM Do YYYY");
+
     return(
       <div hasClass="entry" key={entry.id}>
-        <p>{entry.id}</p>
+        <p>{date}</p>
         <p>{entry.city}, {entry.country}</p>
-        <p>{entry.day} - {entry.month} - {entry.year}</p>
         <p dangerouslySetInnerHTML={{__html: entry.description}} />
       </div>
     )
@@ -356,6 +359,15 @@ var NavList = React.createClass({
 
   renderTemplate: function(item){
     var type = this.props.type;
+    var displayItem = item[type];
+
+    console.log(displayItem);
+
+
+    // if it's display months, just moment to show the word
+   if ( type === 'month' ) {
+        var displayItem = moment({ months : (displayItem - 1) }).format("MMMM");
+    }
 
     // check to make sure you're comparing strings to strings and
     // ints to ints
@@ -371,7 +383,7 @@ var NavList = React.createClass({
         className= {active}
         key= {item[type]}
         onClick={this.findMostRecent.bind(this, item)}
-        >{item[type]}</li>
+        >{displayItem}</li>
     );
   },
 
