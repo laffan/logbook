@@ -1,0 +1,136 @@
+// RESET
+// -------------------------------------------
+
+html,body,div,span,apfplet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{border:0;font-family:inherit;font-size:100%;font-style:inherit;font-weight:inherit;margin:0;outline:0;padding:0;vertical-align:baseline}html{font-size:62.5%;overflow-y:scroll;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}*,*:before,*:after{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}body,button,input,select,textarea{color:#404040;font-family:sans-serif;font-size:16px;font-size:1.6rem;line-height:1.5}b,strong{font-weight:bold}dfn,cite,em,i{font-style:italic}article,aside,details,figcaption,figure,footer,header,main,nav,section{display:block}
+
+li {
+  list-style: none;
+}
+
+.u-clearboth {clear: both;}
+
+// CHROME <DIV> BUG FIX
+// -------------------------------------------
+
+
+
+pre{
+    white-space: pre-wrap;
+}
+
+.Entry-description {
+  font-size: 15px !important;
+  line-height: 1.5 !important;
+  white-space: pre-wrap !important;
+  display: inline-block;
+}
+
+
+// COLOR
+// -------------------------------------------
+
+@black : black;
+@grayDark: lighten(black, 20%);
+@grayLight: lighten(black, 60%);
+
+// TYPE
+// -------------------------------------------
+
+
+body,
+input,
+textarea,
+li {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 15px;
+}
+
+
+.alert {
+  position: fixed;
+  left: 10px;
+  top: 10px;
+  font-size: 11px;
+}
+
+// LOGBOOK ADMIN
+// -------------------------------------------
+.wrapper {
+  width: 95%;
+  max-width: 550px;
+  margin: 0 auto;
+  margin-top: 30px;
+}
+
+// ENTRY LIST
+// -------------------------------------------
+
+
+
+.Entry {
+  border: 1px solid black;
+  margin-bottom: 30px;;
+}
+
+.Entry-topBar {
+  display: block;
+  border-bottom: 1px solid @grayLight;
+}
+
+.Entry-datePicker,
+.Entry-city,
+.Entry-country {
+  border: none;
+  float: left;
+  padding: 10px;
+  width: 33.33%;
+  font-size: 12px;
+}
+
+.Entry-datePicker,
+.Entry-city {
+  border-right: 1px solid @grayLight;
+
+}
+
+
+.Entry-description{
+  padding: 50px;
+  width: 100%;
+  border: none;
+}
+
+.Entry-delete{
+  border: none;
+  float: right;
+  color: @grayLight;
+  background: transparent;
+  font-size: 11px;
+  cursor: pointer;
+
+  &:hover {
+    color: red;
+  }
+}
+
+// NEW ENTRY
+// -------------------------------------------
+
+.EntryNew {
+  margin-bottom: 30px;
+}
+
+.Entry-save{
+  border: none;
+  border-top: 1px solid black;
+  display: block;
+  padding: 10px;
+  width: 100%;
+  background: transparent;
+  font-size: 11px;
+  cursor: pointer;
+
+  &:hover {
+    color: green;
+  }
+}

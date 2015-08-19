@@ -1,0 +1,8 @@
+
+*.sketch
+
+config.php
+
+.remote-sync.json
+
+--notes.md
