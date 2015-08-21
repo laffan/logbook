@@ -7,6 +7,7 @@ var Logbook = React.createClass({displayName: "Logbook",
   getInitialState: function(){
     return {
       navData:[],
+      entryData : [],
       navShow : {
         years : [],
         months : [],
@@ -42,7 +43,7 @@ var Logbook = React.createClass({displayName: "Logbook",
     var currentMonth = parseInt(this.state.current.month);
     var currentLocation = this.state.current.location;
 
-    var newMonths = _.findWhere(this.state.navData, {'year' : currentYear }).months
+    var newMonths = _.findWhere(this.state.navData, {'year' : currentYear }).months;
     var newLocations = _.findWhere( newMonths , {'month': currentMonth }).locations;
     var newDays = _.findWhere( newLocations , {'location': currentLocation }).days;
 
@@ -54,6 +55,9 @@ var Logbook = React.createClass({displayName: "Logbook",
             days: newDays
           }
      });
+
+   this.loadEntry();
+
   },
 
   findMostRecent: function(level, value){
@@ -74,7 +78,7 @@ var Logbook = React.createClass({displayName: "Logbook",
     }
 
     function findMonths(){
-      t.state.navShow.months = _.findWhere(data, {'year':value}).months
+      t.state.navShow.months = _.findWhere(data, {'year':value}).months;
       cur.month = t.state.navShow.months[ t.state.navShow.months.length - 1 ].month;
     }
 
@@ -88,31 +92,42 @@ var Logbook = React.createClass({displayName: "Logbook",
       cur.day = t.state.navShow.days[ t.state.navShow.days.length - 1 ].day;
     }
 
+    function findID(){
+      cur.id = _.findWhere( t.state.navShow.days , {'day': cur.day }).id;
+    }
+
     switch (level) {
       case "year":
-
         cur.year = value;
 
         findYears();
         findMonths();
         findLocations();
         findDays();
+        findID();
 
         break;
 
       case "month":
         cur.month = value;
+
         findLocations();
         findDays();
+        findID();
+
         break;
 
       case "location":
         cur.location = value;
+
         findDays();
+        findID();
         break;
 
       case "day":
         cur.day = value;
+
+        findID();
         break;
 
       default:
@@ -120,7 +135,7 @@ var Logbook = React.createClass({displayName: "Logbook",
     }
 
     this.setState({ current:cur });
-
+    this.loadEntry();
   },
 
   loadNav: function(){
@@ -142,7 +157,7 @@ var Logbook = React.createClass({displayName: "Logbook",
 
   loadPrevNext: function(direction){
     var data = {
-      'entry' : this.state.current,
+      'id' : this.state.current.id,
       'direction' : direction
     };
 
@@ -156,9 +171,15 @@ var Logbook = React.createClass({displayName: "Logbook",
         // add location string to the data object so it can be read by
         // the nav's active state;
 
-        data.location = data.city + ', ' + data.country;
+        var dataArray = {
+          year: parseInt(data.year),
+          month: parseInt(data.month),
+          day: parseInt(data.day),
+          id: parseInt(data.id),
+          location: data.city + ', ' + data.country
+        }
 
-        this.setState({ current:data });
+        this.setState({ current:dataArray });
         this.setNav();
 
       }.bind(this),
@@ -168,10 +189,29 @@ var Logbook = React.createClass({displayName: "Logbook",
     });
   },
 
-  render : function() {
+  loadEntry: function(){
+
+    this.setState({ entryData:[] });
+
+    $.ajax({
+      url: this.props.entryUrl,
+      type: 'POST',
+      data: { 'id' : this.state.current.id },
+      dataType: 'json',
+      success: function(data){
+
+          this.setState({ entryData:data });
+
+      }.bind(this),
+      error: function(xhr, status, err){
+      }.bind(this)
+    });
+  },
+
+    render : function() {
     return (
       React.createElement("div", null, 
-        React.createElement("h1", null, "Logbook"), 
+        React.createElement("h1", null, "Logbook : ", this.state.current.id), 
         React.createElement("hr", null), 
         React.createElement(Nav, {
           navData: this.state.navData, 
@@ -192,9 +232,7 @@ var Logbook = React.createClass({displayName: "Logbook",
         React.createElement("hr", null), 
 
         React.createElement(Entry, {
-          entryUrl: this.props.entryUrl, 
-          setCurrentID: this.setCurrentID, 
-          current: this.state.current}
+          entryData: this.state.entryData}
         )
       )
     );
@@ -232,38 +270,6 @@ var PrevNext = React.createClass({displayName: "PrevNext",
 
 var Entry = React.createClass({displayName: "Entry",
 
-  getInitialState: function(){
-    return {
-      entryData : []
-     };
-  },
-
-  componentWillReceiveProps: function() {
-      this.loadEntry();
-  },
-
-  loadEntry: function(){
-
-    var dataObj = {
-      'year' : this.props.current.year,
-      'month' : this.props.current.month,
-      'day' : this.props.current.day
-    };
-
-    $.ajax({
-      url: this.props.entryUrl,
-      type: 'POST',
-      data: dataObj,
-      dataType: 'json',
-      success: function(data){
-          this.setState({ entryData:data });
-
-      }.bind(this),
-      error: function(xhr, status, err){
-      }.bind(this)
-    });
-  },
-
   renderTemplate: function(entry) {
 
     var date  = moment({
@@ -276,13 +282,14 @@ var Entry = React.createClass({displayName: "Entry",
       React.createElement("div", {hasClass: "entry", key: entry.id}, 
         React.createElement("p", null, date), 
         React.createElement("p", null, entry.city, ", ", entry.country), 
+        React.createElement("p", null, " ID : ", entry.id), 
         React.createElement("p", {dangerouslySetInnerHTML: {__html: entry.description}})
       )
     )
   },
 
   render : function() {
-    var entries = this.state.entryData.map(this.renderTemplate);
+    var entries = this.props.entryData.map(this.renderTemplate);
     return (
       React.createElement("div", null, 
         entries
@@ -300,7 +307,7 @@ var Nav = React.createClass({displayName: "Nav",
 
   render : function() {
     return (
-      React.createElement("div", null, 
+      React.createElement("div", {className: "Nav"}, 
 
         React.createElement("h2", null, "Years"), 
         React.createElement(NavList, {
@@ -358,8 +365,6 @@ var NavList = React.createClass({displayName: "NavList",
   renderTemplate: function(item){
     var type = this.props.type;
     var displayItem = item[type];
-
-    console.log(displayItem);
 
 
     // if it's display months, just moment to show the word

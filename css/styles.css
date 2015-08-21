@@ -1,1 +1,1 @@
-.active{border:1px solid #d76114;color:#d76114}.navList{padding:0;margin:0}.prevNext{float:left;padding:10px;border:1px dotted black;margin:5px;cursor:pointer}.navList li{list-style:none;float:left;padding:5px;cursor:pointer}.u-clearboth{clear:both}
+.prevNext{float:left;padding:10px;border:1px dotted black;margin:5px;cursor:pointer}.u-clearboth{clear:both}.Nav{border:1px solid black;width:400px;overflow:hidden}.navList{width:1000px}.navList li{list-style:none;float:left;padding:5px;cursor:pointer}.active{border:1px solid #d76114;color:#d76114}.navList{padding:0;margin:0}

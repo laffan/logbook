@@ -3,28 +3,13 @@ include_once("../config.php");
 
 
 $direction = $_POST['direction'];
-$entry = $_POST['entry'];
-
-$year = intval($entry['year']);
-$month =  intval($entry['month']);
-$day =  intval($entry['day']);
-
-// $direction = 'prev';
-// $entry = $_POST['entry'];
+$currentID = intVal($_POST['id']);
 //
-// $year = 2015;
-// $month =  9;
-// $day =  3;
+// $direction = 'prev';
+// $currentID =26;
 
-$currentID = null;
 $returnID = null;
 $entries = array();
-
-// GET current entry.
-// --------------------------------------------------
-
-$currentEntry = getEntry($year, $month, $day, null);
-$currentID = $currentEntry['id'];
 
 // GET all entries.
 // --------------------------------------------------
@@ -40,7 +25,7 @@ $returnID = returnCurrent($currentID, $entries, $direction);
 // --------------------------------------------------
 
 if ( $returnID ) {
-  $returnEntry = getEntry(null, null, null, $returnID);
+  $returnEntry = getEntry($returnID);
   echo json_encode($returnEntry);
 }
 
@@ -53,23 +38,12 @@ if ( $returnID ) {
 /* Get Entry based on Year/Month/Day OR Id.
 */
 
-function getEntry($year, $month, $day, $id) {
-
-  $search = '';
-
-  if ($year && $month && $day)
-  {
-    $search = "WHERE entries.year = $year AND entries.month = $month AND  entries.day = $day";
-  }
-  if ($id)
-  {
-    $search = "WHERE entries.id = $id";
-  }
-
+function getEntry($id) {
 	$query = "SELECT entries.*
 						FROM entries
-            $search
-            LIMIT 1 ";
+            WHERE entries.id = $id
+            LIMIT 1
+            ";
 	$result = mysql_query($query);
 
 	if (false == $result) { echo mysql_error(); }
