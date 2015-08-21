@@ -26,10 +26,34 @@ var Logbook = React.createClass({
      };
   },
 
-
   componentWillMount: function() {
     this.loadNav();
   },
+
+  componentDidUpdate: function(){
+
+    $(".navList").each(function(){
+
+      var active = $(this).find('li.active');
+      var activePos = active.position();
+      var activeOff = active.offset();
+      var activeLeft = '';
+
+      if ( activePos ) {
+
+        activePosition = activePos.left;
+        activeOffset = activeOff.left;
+
+        var marginAdjust = -activePosition + ( $('.Nav').outerWidth() / 2 ) - ( active.outerWidth() / 2 );
+
+        $(this).css({
+          marginLeft : marginAdjust
+        });
+      }
+
+    });
+  },
+
 
   setCurrent: function(current){
     this.setState({ current: current });
@@ -210,10 +234,10 @@ var Logbook = React.createClass({
     });
   },
 
-    render : function() {
+  render : function() {
     return (
       <div>
-        <h1>Logbook : {this.state.current.id}</h1>
+        <h1>Logbook</h1>
         <hr></hr>
         <Nav
           navData={this.state.navData}
@@ -284,7 +308,6 @@ var Entry = React.createClass({
       <div hasClass="entry" key={entry.id}>
         <p>{date}</p>
         <p>{entry.city}, {entry.country}</p>
-        <p> ID : {entry.id}</p>
         <p dangerouslySetInnerHTML={{__html: entry.description}} />
       </div>
     )
@@ -311,7 +334,6 @@ var Nav = React.createClass({
     return (
       <div className="Nav">
 
-        <h2>Years</h2>
         <NavList
           type = 'year'
           data = {this.props.navShow.years}
@@ -321,7 +343,6 @@ var Nav = React.createClass({
 
         <div className='u-clearboth'></div>
 
-        <h2>Months</h2>
         <NavList
           type = 'month'
           data = {this.props.navShow.months}
@@ -329,9 +350,8 @@ var Nav = React.createClass({
           findMostRecent = {this.props.findMostRecent}
           />
 
-        <div className='u-clearboth'></div>
+          <div className='u-clearboth'></div>
 
-        <h2>Locations</h2>
         <NavList
           type = 'location'
           data = {this.props.navShow.locations}
@@ -339,9 +359,8 @@ var Nav = React.createClass({
           findMostRecent = {this.props.findMostRecent}
           />
 
-        <div className='u-clearboth'></div>
+          <div className='u-clearboth'></div>
 
-        <h2>Days</h2>
         <NavList
           type = 'day'
           data = {this.props.navShow.days}
@@ -349,7 +368,7 @@ var Nav = React.createClass({
           findMostRecent = {this.props.findMostRecent}
           />
 
-        <div className='u-clearboth'></div>
+          <div className='u-clearboth'></div>
 
       </div>
     );

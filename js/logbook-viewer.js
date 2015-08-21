@@ -24,10 +24,34 @@ var Logbook = React.createClass({displayName: "Logbook",
      };
   },
 
-
   componentWillMount: function() {
     this.loadNav();
   },
+
+  componentDidUpdate: function(){
+
+    $(".navList").each(function(){
+
+      var active = $(this).find('li.active');
+      var activePos = active.position();
+      var activeOff = active.offset();
+      var activeLeft = '';
+
+      if ( activePos ) {
+
+        activePosition = activePos.left;
+        activeOffset = activeOff.left;
+
+        var marginAdjust = -activePosition + ( $('.Nav').outerWidth() / 2 ) - ( active.outerWidth() / 2 );
+
+        $(this).css({
+          marginLeft : marginAdjust
+        });
+      }
+
+    });
+  },
+
 
   setCurrent: function(current){
     this.setState({ current: current });
@@ -208,10 +232,10 @@ var Logbook = React.createClass({displayName: "Logbook",
     });
   },
 
-    render : function() {
+  render : function() {
     return (
       React.createElement("div", null, 
-        React.createElement("h1", null, "Logbook : ", this.state.current.id), 
+        React.createElement("h1", null, "Logbook"), 
         React.createElement("hr", null), 
         React.createElement(Nav, {
           navData: this.state.navData, 
@@ -282,7 +306,6 @@ var Entry = React.createClass({displayName: "Entry",
       React.createElement("div", {hasClass: "entry", key: entry.id}, 
         React.createElement("p", null, date), 
         React.createElement("p", null, entry.city, ", ", entry.country), 
-        React.createElement("p", null, " ID : ", entry.id), 
         React.createElement("p", {dangerouslySetInnerHTML: {__html: entry.description}})
       )
     )
@@ -309,7 +332,6 @@ var Nav = React.createClass({displayName: "Nav",
     return (
       React.createElement("div", {className: "Nav"}, 
 
-        React.createElement("h2", null, "Years"), 
         React.createElement(NavList, {
           type: "year", 
           data: this.props.navShow.years, 
@@ -319,7 +341,6 @@ var Nav = React.createClass({displayName: "Nav",
 
         React.createElement("div", {className: "u-clearboth"}), 
 
-        React.createElement("h2", null, "Months"), 
         React.createElement(NavList, {
           type: "month", 
           data: this.props.navShow.months, 
@@ -327,9 +348,8 @@ var Nav = React.createClass({displayName: "Nav",
           findMostRecent: this.props.findMostRecent}
           ), 
 
-        React.createElement("div", {className: "u-clearboth"}), 
+          React.createElement("div", {className: "u-clearboth"}), 
 
-        React.createElement("h2", null, "Locations"), 
         React.createElement(NavList, {
           type: "location", 
           data: this.props.navShow.locations, 
@@ -337,9 +357,8 @@ var Nav = React.createClass({displayName: "Nav",
           findMostRecent: this.props.findMostRecent}
           ), 
 
-        React.createElement("div", {className: "u-clearboth"}), 
+          React.createElement("div", {className: "u-clearboth"}), 
 
-        React.createElement("h2", null, "Days"), 
         React.createElement(NavList, {
           type: "day", 
           data: this.props.navShow.days, 
@@ -347,7 +366,7 @@ var Nav = React.createClass({displayName: "Nav",
           findMostRecent: this.props.findMostRecent}
           ), 
 
-        React.createElement("div", {className: "u-clearboth"})
+          React.createElement("div", {className: "u-clearboth"})
 
       )
     );

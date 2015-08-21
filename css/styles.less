@@ -1,4 +1,12 @@
 
+.transitionAll(@speed) {
+	-webkit-transition: all @speed ease;
+	-moz-transition: all @speed ease;
+	-ms-transition: all @speed ease;
+	-o-transition: all @speed ease;
+	transition: all @speed ease;
+}
+
 
 .prevNext{
   float: left;
@@ -19,8 +27,18 @@
   overflow: hidden;
 }
 
+.navList-shim {
+  height: 50px;;
+}
+
 .navList {
   width: 1000px;
+  left: 0;
+  position: relative;
+  display: block;
+  // position: absolute;
+  .transitionAll(700ms);
+  border-top: 1px dotted gray;
 }
 
 .navList li{
@@ -32,7 +50,8 @@
 
 
 .active {
-  border: 1px solid rgb(215, 97, 20);
+  margin-top: -1px;
+  border-top: 1px solid rgb(215, 97, 20) !important;
   color: rgb(215, 97, 20);
 }
 
