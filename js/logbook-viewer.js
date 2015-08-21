@@ -265,6 +265,25 @@ var Logbook = React.createClass({displayName: "Logbook",
 
 var PrevNext = React.createClass({displayName: "PrevNext",
 
+  componentDidMount: function() {
+    // thanks to changey :  http://stackoverflow.com/questions/29550966/key-binding-in-react-js
+    $(document.body).on('keydown', this.handleKeyDown);
+  },
+
+  componentWillUnMount: function() {
+    $(document.body).off('keydown', this.handleKeyDown);
+  },
+
+  handleKeyDown: function(event) {
+
+    if (event.keyCode == 39 /*right*/) {
+      this.sendDirection('next');
+    }
+    if (event.keyCode == 37 /*left*/) {
+      this.sendDirection('prev');
+    }
+  },
+
   sendDirection(direction){
     this.props.loadPrevNext(direction)
   },
