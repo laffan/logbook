@@ -19,6 +19,7 @@ var Logbook = React.createClass({displayName: "Logbook",
         year : [],
         month : [],
         location : [],
+        album : [],
         day: []
       }
      };
@@ -201,7 +202,7 @@ var Logbook = React.createClass({displayName: "Logbook",
           day: parseInt(data.day),
           id: parseInt(data.id),
           location: data.city + ', ' + data.country
-        }
+        };
 
         this.setState({ current:dataArray });
         this.setNav();
@@ -235,7 +236,7 @@ var Logbook = React.createClass({displayName: "Logbook",
   render : function() {
     return (
       React.createElement("div", null, 
-        React.createElement("h1", null, "Logbook"), 
+          React.createElement("h1", null, "Logbook"), 
         React.createElement("hr", null), 
         React.createElement(Nav, {
           navData: this.state.navData, 
@@ -313,6 +314,18 @@ var PrevNext = React.createClass({displayName: "PrevNext",
 
 var Entry = React.createClass({displayName: "Entry",
 
+  getLink: function(entry){
+    var extras = { };
+    if (entry.album) {
+      extras.href = entry.album;
+      extras.target = '_blank';
+      return React.createElement("a", React.__spread({},  extras), "[ camera ]");
+    }
+    else {
+      return '';
+    }
+  },
+
   renderTemplate: function(entry) {
 
     var date  = moment({
@@ -321,9 +334,11 @@ var Entry = React.createClass({displayName: "Entry",
                   date : entry.day
                 }).format("dddd, MMMM Do YYYY");
 
+
     return(
       React.createElement("div", {hasClass: "entry", key: entry.id}, 
         React.createElement("p", null, date), 
+        React.createElement("p", null, this.getLink(entry)), 
         React.createElement("p", null, entry.city, ", ", entry.country), 
         React.createElement("p", {dangerouslySetInnerHTML: {__html: entry.description}})
       )

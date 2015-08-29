@@ -6,3 +6,7 @@ config.php
 .remote-sync.json
 
 --notes.md
+
+*.jpg
+
+ajax/config-secondhand.php

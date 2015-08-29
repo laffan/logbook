@@ -21,6 +21,7 @@ var Logbook = React.createClass({
         year : [],
         month : [],
         location : [],
+        album : [],
         day: []
       }
      };
@@ -203,7 +204,7 @@ var Logbook = React.createClass({
           day: parseInt(data.day),
           id: parseInt(data.id),
           location: data.city + ', ' + data.country
-        }
+        };
 
         this.setState({ current:dataArray });
         this.setNav();
@@ -237,7 +238,7 @@ var Logbook = React.createClass({
   render : function() {
     return (
       <div>
-        <h1>Logbook</h1>
+          <h1>Logbook</h1>
         <hr></hr>
         <Nav
           navData={this.state.navData}
@@ -315,6 +316,18 @@ var PrevNext = React.createClass({
 
 var Entry = React.createClass({
 
+  getLink: function(entry){
+    var extras = { };
+    if (entry.album) {
+      extras.href = entry.album;
+      extras.target = '_blank';
+      return <a {...extras} >[ camera ]</a>;
+    }
+    else {
+      return '';
+    }
+  },
+
   renderTemplate: function(entry) {
 
     var date  = moment({
@@ -323,9 +336,11 @@ var Entry = React.createClass({
                   date : entry.day
                 }).format("dddd, MMMM Do YYYY");
 
+
     return(
       <div hasClass="entry" key={entry.id}>
         <p>{date}</p>
+        <p>{this.getLink(entry)}</p>
         <p>{entry.city}, {entry.country}</p>
         <p dangerouslySetInnerHTML={{__html: entry.description}} />
       </div>

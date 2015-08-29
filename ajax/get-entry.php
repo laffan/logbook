@@ -1,8 +1,9 @@
 <?php
 include_once("../config.php");
 
-// ini_set('display_errors',1);
-// error_reporting(E_ALL|E_STRICT);
+// functions to get album IDs from
+// SecondHand or The Click
+include_once("get-album.php");
 
 $id = $_POST['id'];
 
@@ -22,6 +23,8 @@ $id = $_POST['id'];
 	while( $data = mysql_fetch_array($result) ) {
 		$entries[] = $data;
 	}
+
+	$entries[0]['album'] = getAlbum( $entries[0]['year'], $entries[0]['month'], $entries[0]['day'] );
 
 	print_r(json_encode($entries));
 
