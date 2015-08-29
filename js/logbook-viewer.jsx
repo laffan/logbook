@@ -238,7 +238,7 @@ var Logbook = React.createClass({
   render : function() {
     return (
       <div>
-          <h1>Logbook</h1>
+        <h1>Logbook</h1>
         <hr></hr>
         <Nav
           navData={this.state.navData}
@@ -420,7 +420,7 @@ var NavList = React.createClass({
   renderTemplate: function(item){
     var type = this.props.type;
     var displayItem = item[type];
-
+    var active = '';
 
     // if it's display months, just moment to show the word
    if ( type === 'month' ) {
@@ -429,11 +429,10 @@ var NavList = React.createClass({
 
     // check to make sure you're comparing strings to strings and
     // ints to ints
-
     if ( type === 'location') {
-      var active = (this.props.current === item[type]) ? 'active' : null;
+      active = (this.props.current === item[type]) ? 'active' : null;
     } else {
-      var active = ( parseInt(this.props.current) === parseInt(item[type])) ? 'active' : null;
+      active = ( parseInt(this.props.current) === parseInt(item[type])) ? 'active' : null;
     }
 
     return (
