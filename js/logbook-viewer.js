@@ -31,28 +31,49 @@ var Logbook = React.createClass({displayName: "Logbook",
 
   componentDidUpdate: function(){
 
-    $(".navList").each(function(){
+    function positionDateNav(){
 
-      var active = $(this).find('li.active');
-      var activePos = active.position();
-      var activeOff = active.offset();
-      var activeLeft = '';
+       var topMargin = ( $(window).height() - $('.Logbook-Nav').height()) / 2 ;
 
-      if ( activePos ) {
+       if ( topMargin > 10 ) {
+         $('.Logbook').css({
+           marginTop: topMargin
+         });
+       }
 
-        activePosition = activePos.left;
-        activeOffset = activeOff.left;
+      $(".navList").each(function(){
 
-        var marginAdjust = -activePosition + ( $('.Nav').outerWidth() / 2 ) - ( active.outerWidth() / 2 );
+        var active = $(this).find('li.active');
+        var activePos = active.position();
+        var activeOff = active.offset();
+        var activeLeft = '';
 
-        $(this).css({
-          marginLeft : marginAdjust
-        });
-      }
+        if ( activePos ) {
 
+          activePosition = activePos.left;
+          activeOffset = activeOff.left;
+
+          var marginAdjust = -activePosition + ( $('.Logbook-Nav').outerWidth() / 2 ) - ( active.outerWidth() / 2 );
+
+          $(this).css({
+            marginLeft : marginAdjust - 30 // for padding.
+          });
+        }
+
+      });
+    }
+
+
+    $(window).bind('resize', function () {
+      positionDateNav();
     });
-  },
 
+
+    positionDateNav();
+
+
+
+  },
 
   setCurrent: function(current){
     this.setState({ current: current });
@@ -234,10 +255,18 @@ var Logbook = React.createClass({displayName: "Logbook",
   },
 
   render : function() {
+
+    var aboutString = "The Logbook is a short, off-the-cuff account of day-to-day happenings while life feels interesting.";
+
     return (
       React.createElement("div", null, 
-        React.createElement("h1", null, "Logbook"), 
-        React.createElement("hr", null), 
+        React.createElement("div", {className: "Logbook-Nav"}, 
+
+          React.createElement("div", {className: "Logbook-Nav-Header"}, 
+            React.createElement("h1", null, "The", React.createElement("br", null), "Logbook"), 
+            React.createElement("span", {className: "meta"}, aboutString)
+          ), 
+
         React.createElement(Nav, {
           navData: this.state.navData, 
           navShow: this.state.navShow, 
@@ -246,19 +275,19 @@ var Logbook = React.createClass({displayName: "Logbook",
           findMostRecent: this.findMostRecent}
           ), 
 
-        React.createElement("hr", null), 
-
         React.createElement(PrevNext, {
           prevNextURL: this.props.prevNextURL, 
           loadPrevNext: this.loadPrevNext, 
           current: this.state.current}
-          ), 
-
-        React.createElement("hr", null), 
+          )
+        ), 
+        React.createElement("div", {className: "Logbook-Content"}, 
 
         React.createElement(Entry, {
           entryData: this.state.entryData}
         )
+      )
+
       )
     );
   }
@@ -285,8 +314,8 @@ var PrevNext = React.createClass({displayName: "PrevNext",
     }
   },
 
-  sendDirection(direction){
-    this.props.loadPrevNext(direction)
+  sendDirection: function(direction){
+    this.props.loadPrevNext(direction);
   },
 
   findPrevNext: function(direction){
@@ -296,14 +325,14 @@ var PrevNext = React.createClass({displayName: "PrevNext",
   render : function() {
     return (
       React.createElement("div", null, 
-        React.createElement("h4", {
-          className: "prevNext", 
+        React.createElement("div", {
+          className: "Logbook-Prev", 
           onClick: this.sendDirection.bind(this, 'prev')
-          }, "Prev"), 
-        React.createElement("h4", {
-          className: "prevNext", 
+          }), 
+        React.createElement("div", {
+          className: "Logbook-Next", 
           onClick: this.sendDirection.bind(this, 'next')
-          }, "Next"), 
+          }), 
 
         React.createElement("div", {className: "u-clearboth"})
 
@@ -319,7 +348,7 @@ var Entry = React.createClass({displayName: "Entry",
     if (entry.album) {
       extras.href = entry.album;
       extras.target = '_blank';
-      return React.createElement("a", React.__spread({},  extras), "[ camera ]");
+      return React.createElement("a", React.__spread({},  extras));
     }
     else {
       return '';
@@ -336,11 +365,15 @@ var Entry = React.createClass({displayName: "Entry",
 
 
     return(
-      React.createElement("div", {hasClass: "entry", key: entry.id}, 
-        React.createElement("p", null, date), 
-        React.createElement("p", null, this.getLink(entry)), 
-        React.createElement("p", null, entry.city, ", ", entry.country), 
-        React.createElement("p", {dangerouslySetInnerHTML: {__html: entry.description}})
+      React.createElement("div", {key: entry.id}, 
+        React.createElement("div", {className: "Logbook-Content-Header"}, 
+          React.createElement("div", {className: "Logbook-photoLink"}, this.getLink(entry)), 
+          React.createElement("div", {className: "meta"}, date), 
+          React.createElement("p", null, entry.city, ", ", entry.country)
+        ), 
+        React.createElement("div", {className: "Logbook-Content-Entry"}, 
+          React.createElement("p", {dangerouslySetInnerHTML: {__html: entry.description}})
+        )
       )
     )
   },
@@ -458,5 +491,5 @@ React.render(
     entryUrl: "ajax/get-entry.php", 
     prevNextURL: "ajax/get-prevnext.php"}
   ),
-  document.getElementById('content')
+  document.getElementById('LogbookContent')
 );

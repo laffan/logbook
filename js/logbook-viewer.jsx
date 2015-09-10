@@ -33,28 +33,49 @@ var Logbook = React.createClass({
 
   componentDidUpdate: function(){
 
-    $(".navList").each(function(){
+    function positionDateNav(){
 
-      var active = $(this).find('li.active');
-      var activePos = active.position();
-      var activeOff = active.offset();
-      var activeLeft = '';
+       var topMargin = ( $(window).height() - $('.Logbook-Nav').height()) / 2 ;
 
-      if ( activePos ) {
+       if ( topMargin > 10 ) {
+         $('.Logbook').css({
+           marginTop: topMargin
+         });
+       }
 
-        activePosition = activePos.left;
-        activeOffset = activeOff.left;
+      $(".navList").each(function(){
 
-        var marginAdjust = -activePosition + ( $('.Nav').outerWidth() / 2 ) - ( active.outerWidth() / 2 );
+        var active = $(this).find('li.active');
+        var activePos = active.position();
+        var activeOff = active.offset();
+        var activeLeft = '';
 
-        $(this).css({
-          marginLeft : marginAdjust
-        });
-      }
+        if ( activePos ) {
 
+          activePosition = activePos.left;
+          activeOffset = activeOff.left;
+
+          var marginAdjust = -activePosition + ( $('.Logbook-Nav').outerWidth() / 2 ) - ( active.outerWidth() / 2 );
+
+          $(this).css({
+            marginLeft : marginAdjust - 30 // for padding.
+          });
+        }
+
+      });
+    }
+
+
+    $(window).bind('resize', function () {
+      positionDateNav();
     });
-  },
 
+
+    positionDateNav();
+
+
+
+  },
 
   setCurrent: function(current){
     this.setState({ current: current });
@@ -236,10 +257,18 @@ var Logbook = React.createClass({
   },
 
   render : function() {
+
+    var aboutString = "The Logbook is a short, off-the-cuff account of day-to-day happenings while life feels interesting.";
+
     return (
       <div>
-        <h1>Logbook</h1>
-        <hr></hr>
+        <div className="Logbook-Nav">
+
+          <div className="Logbook-Nav-Header">
+            <h1>The<br/>Logbook</h1>
+            <span className="meta">{aboutString}</span>
+          </div>
+
         <Nav
           navData={this.state.navData}
           navShow={this.state.navShow}
@@ -248,19 +277,19 @@ var Logbook = React.createClass({
           findMostRecent={this.findMostRecent}
           />
 
-        <hr/>
-
         <PrevNext
           prevNextURL={this.props.prevNextURL}
           loadPrevNext={this.loadPrevNext}
           current={this.state.current}
           />
-
-        <hr/>
+        </div>
+        <div className="Logbook-Content">
 
         <Entry
           entryData={this.state.entryData}
         />
+      </div>
+
       </div>
     );
   }
@@ -287,8 +316,8 @@ var PrevNext = React.createClass({
     }
   },
 
-  sendDirection(direction){
-    this.props.loadPrevNext(direction)
+  sendDirection: function(direction){
+    this.props.loadPrevNext(direction);
   },
 
   findPrevNext: function(direction){
@@ -298,14 +327,14 @@ var PrevNext = React.createClass({
   render : function() {
     return (
       <div>
-        <h4
-          className='prevNext'
+        <div
+          className='Logbook-Prev'
           onClick={this.sendDirection.bind(this, 'prev')}
-          >Prev</h4>
-        <h4
-          className='prevNext'
+          ></div>
+        <div
+          className='Logbook-Next'
           onClick={this.sendDirection.bind(this, 'next')}
-          >Next</h4>
+          ></div>
 
         <div className='u-clearboth'></div>
 
@@ -321,7 +350,7 @@ var Entry = React.createClass({
     if (entry.album) {
       extras.href = entry.album;
       extras.target = '_blank';
-      return <a {...extras} >[ camera ]</a>;
+      return <a {...extras} ></a>;
     }
     else {
       return '';
@@ -338,11 +367,15 @@ var Entry = React.createClass({
 
 
     return(
-      <div hasClass="entry" key={entry.id}>
-        <p>{date}</p>
-        <p>{this.getLink(entry)}</p>
-        <p>{entry.city}, {entry.country}</p>
-        <p dangerouslySetInnerHTML={{__html: entry.description}} />
+      <div key={entry.id}>
+        <div className="Logbook-Content-Header">
+          <div className="Logbook-photoLink">{this.getLink(entry)}</div>
+          <div className="meta">{date}</div>
+          <p>{entry.city}, {entry.country}</p>
+        </div>
+        <div className="Logbook-Content-Entry">
+          <p dangerouslySetInnerHTML={{__html: entry.description}} />
+        </div>
       </div>
     )
   },
@@ -460,5 +493,5 @@ React.render(
     entryUrl="ajax/get-entry.php"
     prevNextURL="ajax/get-prevnext.php"
   />,
-  document.getElementById('content')
+  document.getElementById('LogbookContent')
 );

@@ -12,7 +12,7 @@
 
   </head>
   <body>
-    <div id="content"></div>
+    <div id="LogbookContent"></div>
     <script type="text/javascript" src="js/logbook-viewer.js"></script>
   </body>
 </html>
