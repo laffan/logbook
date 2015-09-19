@@ -24,7 +24,7 @@ $id = $_POST['id'];
 		$entries[] = $data;
 	}
 
-	$entries[0]['album'] = getAlbum( $entries[0]['year'], $entries[0]['month'], $entries[0]['day'] );
+	// $entries[0]['album'] = getAlbum( $entries[0]['year'], $entries[0]['month'], $entries[0]['day'] );
 
 	print_r(json_encode($entries));
 

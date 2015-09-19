@@ -61,7 +61,7 @@ var Logbook = React.createClass({displayName: "Logbook",
         }
 
       });
-    }
+    };
 
 
     $(window).bind('resize', function () {

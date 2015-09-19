@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="35px" height="31px" viewBox="0 0 35 31" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.3 (12072) - http://www.bohemiancoding.com/sketch -->
+    <title>arrowR</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="/ETC-(everything-else)" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="logbook" sketch:type="MSArtboardGroup" transform="translate(-421.000000, -634.000000)" stroke-linecap="square" stroke="#000000">
+            <g id="Group" sketch:type="MSLayerGroup" transform="translate(120.000000, 173.000000)">
+                <g id="arrowR" transform="translate(318.000000, 477.000000) rotate(-180.000000) translate(-318.000000, -477.000000) translate(300.000000, 461.000000)" sketch:type="MSShapeGroup">
+                    <path d="M34.5,16.5 L0.5,16.5" id="Line"></path>
+                    <path d="M0.5,16.5 L15.0602198,1.93978024" id="Line"></path>
+                    <path d="M0.5,31.5 L15.0602198,16.9397802" id="Line-Copy-3" transform="translate(8.000000, 24.000000) scale(1, -1) translate(-8.000000, -24.000000) "></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

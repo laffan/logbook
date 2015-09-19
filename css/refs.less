@@ -1,0 +1,17 @@
+// Page/Template Styles
+// --------------------------------------------------
+
+@import (reference) url("ref-colors.less");
+
+@themeRoot:"http://projects.natelaffan.com/logbook/";
+
+
+// Mixins
+// --------------------------------------------------
+.transitionAll(@attribute, @speed) {
+	-webkit-transition: @attribute @speed ease;
+	-moz-transition: @attribute @speed ease;
+	-ms-transition: @attribute @speed ease;
+	-o-transition: @attribute @speed ease;
+	transition: @attribute @speed ease;
+}

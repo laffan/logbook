@@ -1,0 +1,161 @@
+// page-logbook.less
+//
+// Variable Reference
+// --------------------------------------------------
+@import (reference) url("refs.less");
+
+.u-clearboth { clear: both; }
+
+.u-innerWidth {
+  max-width: 970px;
+  width: 90%;
+  margin: 0 auto;
+}
+
+
+// Logbook Nav
+// --------------------------------------------------
+.Logbook {
+  margin-top: 200px
+}
+
+.Logbook h1 {
+  display: block;
+  text-align: center;
+}
+.Logbook-Nav {
+  width: 40%;
+  border: 1px solid @LogbookBorders;
+  overflow: hidden;
+  float: left;
+}
+
+.Logbook-Nav-Header {
+  padding: 80px 30px 50px 30px;
+  text-align: center;
+
+}
+.Logbook-Nav-Header h1 {
+  padding-bottom: 20px;
+}
+
+.transitionAll(@speed) {
+	-webkit-transition: all @speed ease;
+	-moz-transition: all @speed ease;
+	-ms-transition: all @speed ease;
+	-o-transition: all @speed ease;
+	transition: all @speed ease;
+}
+
+.Logbook-Prev,
+.Logbook-Next
+ {
+  width: 35px;
+  height: 31px;
+  display: block;
+  margin: 30px;
+  opacity: .3;
+  cursor: pointer;
+  &:hover {
+    opacity: 1;
+  }
+}
+.Logbook-Prev {
+  background: url("@{themeRoot}img/logbook-arrow-left.svg") no-repeat center center;
+  display: block;
+  float: left;
+}
+.Logbook-Next {
+
+  background: url("@{themeRoot}img/logbook-arrow-right.svg") no-repeat center center;
+  display: block;
+  float: right;
+}
+
+
+.u-clearboth{clear:both;}
+
+/* Slider Styles */
+
+.navList-shim {
+  height: 50px;;
+}
+.navList {
+  width: 1000px;
+  left: 0;
+  position: relative;
+  display: block;
+  // position: absolute;
+  .transitionAll(700ms);
+  border-top: 1px dotted gray;
+}
+.navList li{
+  list-style: none;
+  float: left;
+  padding: 5px;
+  cursor: pointer;
+  color: lighten(gray, 20%);
+  margin-top: -1px;
+
+  &:hover {
+    color: gray;
+
+  }
+}
+.active {
+  margin-top: -1px;
+  border-top: 1px solid @logbookHighlight !important;
+  color: @logbookHighlight !important;
+  font-weight: bold;
+}
+.navList {
+  padding: 0;
+  margin: 0;
+}
+
+
+
+// Logbook Content
+// --------------------------------------------------
+
+.Logbook-Content {
+  width: 60%;
+  margin-left: 40%;
+  padding-left: 30px;
+  padding-bottom: 200px;
+}
+.Logbook-Content-Header {
+  border-top: 1px solid lighten(gray, 20%);
+  border-bottom: 1px dotted lighten(gray, 20%);
+  padding: 20px 0;
+  margin-bottom: 30px;
+}
+.Logbook-Content-Header .meta {
+  color: black;
+}
+.Logbook-Content-Header p {
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+}
+.Logbook-Content-Header .Logbook-photoLink {
+  width: 30px;
+  height: 52px;
+  background: url("@{themeRoot}img/camera.svg") no-repeat center center;
+  float: right;
+  opacity: .5;
+  cursor: pointer;
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.Logbook-Content-Entry p {
+  white-space: pre-wrap !important;
+}
+
+.Logbook-Content-Entry br {
+  display: block !important;
+  padding: 15px 0 !important;
+  content: " " !important;
+}

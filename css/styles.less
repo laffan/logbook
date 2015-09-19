@@ -1,61 +1,17 @@
+/*!
+Logbook Main Stylesheet
+*/
 
-.transitionAll(@speed) {
-	-webkit-transition: all @speed ease;
-	-moz-transition: all @speed ease;
-	-ms-transition: all @speed ease;
-	-o-transition: all @speed ease;
-	transition: all @speed ease;
-}
+// DEVELOPMENT
+// --------------------------------------------------
+// @import url("reset.css");
+// @import url("main.css");
+// @import url("type.css");
+//
 
+// PRODUCTION
+// --------------------------------------------------
 
-.prevNext{
-  float: left;
-  padding: 10px;
-  border: 1px dotted black;
-  margin: 5px;
-  cursor: pointer;
-}
-
-
-.u-clearboth{clear:both;}
-
-/* Slider Styles */
-
-.Nav {
-  padding: 50px;
-  width: 400px;
-  overflow: hidden;
-}
-
-.navList-shim {
-  height: 50px;;
-}
-
-.navList {
-  width: 1000px;
-  left: 0;
-  position: relative;
-  display: block;
-  // position: absolute;
-  .transitionAll(700ms);
-  border-top: 1px dotted gray;
-}
-
-.navList li{
-  list-style: none;
-  float: left;
-  padding: 5px;
-  cursor: pointer;
-}
-
-
-.active {
-  margin-top: -1px;
-  border-top: 1px solid rgb(215, 97, 20) !important;
-  color: rgb(215, 97, 20);
-}
-
-.navList {
-  padding: 0;
-  margin: 0;
-}
+@import (inline) url("reset.css");
+@import (inline) url("main.css");
+@import (inline) url("type.css");

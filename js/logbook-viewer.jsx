@@ -63,7 +63,7 @@ var Logbook = React.createClass({
         }
 
       });
-    }
+    };
 
 
     $(window).bind('resize', function () {

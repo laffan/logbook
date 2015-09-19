@@ -1,0 +1,135 @@
+// type.less
+
+// Fonts
+// --------------------------------------------------
+
+.font-opensans {
+  font-family: "open-sans", "Open Sans", sans-serif;
+}
+.font-calluna {
+  font-family: "calluna", "Calluna", sans-serif;
+}
+
+// Font Size
+// --------------------------------------------------
+
+@type-micro: 8px;
+@type-smallest: 10px;
+@type-smaller: 12px;
+@type-small: 14px;
+@type-base: 18px;
+@type-large: 25px;
+@type-larger: 37px;
+@type-largest: 53px;
+@type-jumbo: 53px;
+
+
+// Tags
+// --------------------------------------------------
+
+h1 {
+  &:extend(.font-calluna);
+  font-size: @type-largest;
+  font-weight: bold;
+  line-height: @type-largest ;
+}
+
+
+
+h2 {
+  &:extend(.font-calluna);
+  font-size: @type-larger;
+  line-height: @type-larger + 3;
+}
+h3 {
+  &:extend(.font-calluna);
+  font-size: @type-large;
+}
+h4 {
+  &:extend(.font-opensans);
+  font-weight: bold;
+  font-size: @type-small;
+  text-transform: uppercase;
+}
+h5 {
+  &:extend(.font-opensans);
+  font-size: @type-small;
+  font-weight: bold;
+  text-transform: uppercase;
+  display: block;
+  border-top: 1px solid black;
+  padding: 10px 0 5px 0;
+}
+.meta {
+  &:extend(.font-opensans);
+  font-size: @type-smaller;
+  margin: 0;
+  line-height: @type-smaller + 5;
+  display: inline-block;
+}
+p, li {
+  &:extend(.font-calluna);
+  font-size: @type-base;
+}
+p {
+  padding: 15px 0;
+  line-height: 29px;
+
+  &:first-child { padding-top: 0; }
+  &:first-child { padding-bottom: 0; }
+}
+p.column {
+  line-height: 20px;
+}
+blockquote {
+  padding: 30px;
+  border-left: 5px solid lighten(gray, 20%);
+  background: lighten(gray, 43%);
+  margin: 20px 0;
+}
+li {
+  list-style: square;
+  margin-left: 20px;
+}
+
+
+// Tags
+// --------------------------------------------------
+
+.readMoreLink {
+  &:extend(.font-calluna);
+  font-size: @type-small;
+  font-weight: bold;
+}
+.Blog-Favorite-Box h3 {
+  font-size: @type-base;
+}
+.Blog-Favorite-Box .meta {
+  font-size: @type-small;
+}
+.Blog-Favorite-Box p {
+  font-size: @type-micro;
+  line-height: @type-micro + 4;
+  padding: 0 0 10px 0;
+}
+.Blog-Archive ul li p { font-size: @type-large; }
+.Blog-Archive ul li .meta { font-size: @type-small; }
+
+.CommentsForm input,
+.CommentsForm textarea {
+  &:extend(p);
+  padding: 0;
+}
+.CommentsForm input[type="submit"],
+.Blog-SearchForm form input[type="submit"] {
+  &:extend(h4);
+}
+.Blog-SearchForm input{
+  &:extend(.font-opensans);
+  font-size: @type-small;
+}
+.navList li {
+  &:extend(.font-opensans);
+  font-size: @type-small;
+
+}
