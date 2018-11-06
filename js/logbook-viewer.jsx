@@ -369,7 +369,7 @@ var Entry = React.createClass({
     return(
       <div key={entry.id}>
         <div className="Logbook-Content-Header">
-          <div className="Logbook-photoLink">{this.getLink(entry)}</div>
+          // <div className="Logbook-photoLink">{this.getLink(entry)}</div>
           <div className="meta">{date}</div>
           <p>{entry.city}, {entry.country}</p>
         </div>

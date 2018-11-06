@@ -259,29 +259,29 @@ var Logbook = React.createClass({displayName: "Logbook",
     var aboutString = "The Logbook is a short, off-the-cuff account of day-to-day happenings while life feels interesting.";
 
     return (
-      React.createElement("div", null, 
-        React.createElement("div", {className: "Logbook-Nav"}, 
+      React.createElement("div", null,
+        React.createElement("div", {className: "Logbook-Nav"},
 
-          React.createElement("div", {className: "Logbook-Nav-Header"}, 
-            React.createElement("h1", null, "The", React.createElement("br", null), "Logbook"), 
+          React.createElement("div", {className: "Logbook-Nav-Header"},
+            React.createElement("h1", null, "The", React.createElement("br", null), "Logbook"),
             React.createElement("span", {className: "meta"}, aboutString)
-          ), 
+          ),
 
         React.createElement(Nav, {
-          navData: this.state.navData, 
-          navShow: this.state.navShow, 
-          current: this.state.current, 
-          setCurrent: this.setCurrent, 
+          navData: this.state.navData,
+          navShow: this.state.navShow,
+          current: this.state.current,
+          setCurrent: this.setCurrent,
           findMostRecent: this.findMostRecent}
-          ), 
+          ),
 
         React.createElement(PrevNext, {
-          prevNextURL: this.props.prevNextURL, 
-          loadPrevNext: this.loadPrevNext, 
+          prevNextURL: this.props.prevNextURL,
+          loadPrevNext: this.loadPrevNext,
           current: this.state.current}
           )
-        ), 
-        React.createElement("div", {className: "Logbook-Content"}, 
+        ),
+        React.createElement("div", {className: "Logbook-Content"},
 
         React.createElement(Entry, {
           entryData: this.state.entryData}
@@ -324,15 +324,15 @@ var PrevNext = React.createClass({displayName: "PrevNext",
 
   render : function() {
     return (
-      React.createElement("div", null, 
+      React.createElement("div", null,
         React.createElement("div", {
-          className: "Logbook-Prev", 
+          className: "Logbook-Prev",
           onClick: this.sendDirection.bind(this, 'prev')
-          }), 
+          }),
         React.createElement("div", {
-          className: "Logbook-Next", 
+          className: "Logbook-Next",
           onClick: this.sendDirection.bind(this, 'next')
-          }), 
+          }),
 
         React.createElement("div", {className: "u-clearboth"})
 
@@ -365,13 +365,13 @@ var Entry = React.createClass({displayName: "Entry",
 
 
     return(
-      React.createElement("div", {key: entry.id}, 
-        React.createElement("div", {className: "Logbook-Content-Header"}, 
-          React.createElement("div", {className: "Logbook-photoLink"}, this.getLink(entry)), 
-          React.createElement("div", {className: "meta"}, date), 
+      React.createElement("div", {key: entry.id},
+        React.createElement("div", {className: "Logbook-Content-Header"},
+          // React.createElement("div", {className: "Logbook-photoLink"}, this.getLink(entry)), 
+          React.createElement("div", {className: "meta"}, date),
           React.createElement("p", null, entry.city, ", ", entry.country)
-        ), 
-        React.createElement("div", {className: "Logbook-Content-Entry"}, 
+        ),
+        React.createElement("div", {className: "Logbook-Content-Entry"},
           React.createElement("p", {dangerouslySetInnerHTML: {__html: entry.description}})
         )
       )
@@ -381,7 +381,7 @@ var Entry = React.createClass({displayName: "Entry",
   render : function() {
     var entries = this.props.entryData.map(this.renderTemplate);
     return (
-      React.createElement("div", null, 
+      React.createElement("div", null,
         entries
       )
     );
@@ -397,41 +397,41 @@ var Nav = React.createClass({displayName: "Nav",
 
   render : function() {
     return (
-      React.createElement("div", {className: "Nav"}, 
+      React.createElement("div", {className: "Nav"},
 
         React.createElement(NavList, {
-          type: "year", 
-          data: this.props.navShow.years, 
-          current: this.props.current.year, 
+          type: "year",
+          data: this.props.navShow.years,
+          current: this.props.current.year,
           findMostRecent: this.props.findMostRecent}
-          ), 
+          ),
 
-        React.createElement("div", {className: "u-clearboth"}), 
+        React.createElement("div", {className: "u-clearboth"}),
 
         React.createElement(NavList, {
-          type: "month", 
-          data: this.props.navShow.months, 
-          current: this.props.current.month, 
+          type: "month",
+          data: this.props.navShow.months,
+          current: this.props.current.month,
           findMostRecent: this.props.findMostRecent}
-          ), 
+          ),
 
-          React.createElement("div", {className: "u-clearboth"}), 
+          React.createElement("div", {className: "u-clearboth"}),
 
         React.createElement(NavList, {
-          type: "location", 
-          data: this.props.navShow.locations, 
-          current: this.props.current.location, 
+          type: "location",
+          data: this.props.navShow.locations,
+          current: this.props.current.location,
           findMostRecent: this.props.findMostRecent}
-          ), 
+          ),
 
-          React.createElement("div", {className: "u-clearboth"}), 
+          React.createElement("div", {className: "u-clearboth"}),
 
         React.createElement(NavList, {
-          type: "day", 
-          data: this.props.navShow.days, 
-          current: this.props.current.day, 
+          type: "day",
+          data: this.props.navShow.days,
+          current: this.props.current.day,
           findMostRecent: this.props.findMostRecent}
-          ), 
+          ),
 
           React.createElement("div", {className: "u-clearboth"})
 
@@ -468,8 +468,8 @@ var NavList = React.createClass({displayName: "NavList",
 
     return (
       React.createElement("li", {
-        className: active, 
-        key: item[type], 
+        className: active,
+        key: item[type],
         onClick: this.findMostRecent.bind(this, item)
         }, displayItem)
     );
@@ -478,7 +478,7 @@ var NavList = React.createClass({displayName: "NavList",
   render : function() {
     var items = this.props.data.map(this.renderTemplate)
     return (
-      React.createElement("ul", {className: "navList"}, 
+      React.createElement("ul", {className: "navList"},
         items
       )
     );
@@ -487,8 +487,8 @@ var NavList = React.createClass({displayName: "NavList",
 
 React.render(
   React.createElement(Logbook, {
-    navUrl: "ajax/get-nav.php", 
-    entryUrl: "ajax/get-entry.php", 
+    navUrl: "ajax/get-nav.php",
+    entryUrl: "ajax/get-entry.php",
     prevNextURL: "ajax/get-prevnext.php"}
   ),
   document.getElementById('LogbookContent')

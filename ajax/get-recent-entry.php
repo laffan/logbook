@@ -6,7 +6,6 @@ include_once("../functions.php");
 
 $entries = array();
 
-
 $query = "SELECT entries.*
 					FROM entries
 					ORDER BY year DESC, month DESC, day DESC

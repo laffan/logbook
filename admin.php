@@ -9,7 +9,7 @@ $password = 'yourPasswordHere';
 
 /* Set Main Photo Page URL */
 
-$main_url = 'http://www.natelaffan.com/';
+$main_url = 'http://www.createdtopretend.com/';
 
 /* Check Password */
 

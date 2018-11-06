@@ -1,12 +1,12 @@
 <?php
 
 include_once("../config.php");
+
 $entries = [];
 $query = 	 "SELECT entries.*
 							FROM entries
 							ORDER BY entries.year DESC, entries.month DESC, entries.day DESC
 			 				";
-
 
 $result = mysql_query($query);
 

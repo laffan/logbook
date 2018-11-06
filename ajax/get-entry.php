@@ -1,16 +1,12 @@
 <?php
 include_once("../config.php");
 
-// functions to get album IDs from
-// SecondHand or The Click
-include_once("get-album.php");
-
 $id = $_POST['id'];
 
-	$query = "SELECT entries.*
-						FROM entries
-						WHERE entries.id = $id
-						";
+$query = "SELECT entries.*
+					FROM entries
+					WHERE entries.id = $id
+					";
 
 	$result = mysql_query($query);
 

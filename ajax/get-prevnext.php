@@ -1,29 +1,18 @@
 <?php
 include_once("../config.php");
 
-
 $direction = $_POST['direction'];
 $currentID = intVal($_POST['id']);
-//
-// $direction = 'prev';
-// $currentID =26;
-
 $returnID = null;
 $entries = array();
 
 // GET all entries.
-// --------------------------------------------------
-
 $entries = getAllEntryIDs();
 
 // USE $currentID and $entries to find next/prev
-// --------------------------------------------------
-
 $returnID = returnCurrent($currentID, $entries, $direction);
 
 // Return Entry Data with ID
-// --------------------------------------------------
-
 if ( $returnID ) {
   $returnEntry = getEntry($returnID);
   echo json_encode($returnEntry);
