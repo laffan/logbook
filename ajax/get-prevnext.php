@@ -33,11 +33,11 @@ function getEntry($id) {
             WHERE entries.id = $id
             LIMIT 1
             ";
-	$result = mysql_query($query);
+	$result = mysqli_query($connection,$query);
 
-	if (false == $result) { echo mysql_error(); }
+	if (false == $result) { echo mysqli_error($connection); }
 
-  return mysql_fetch_array($result);
+  return mysqli_fetch_array($result);
 
 }
 
@@ -72,13 +72,13 @@ function getAllEntryIDs(){
   						FROM entries
   						ORDER BY entries.year DESC, entries.month DESC, entries.day DESC
               ";
-  $result = mysql_query($query);
+  $result = mysqli_query($connection,$query);
 
   if (false == $result) {
-  	echo mysql_error();
+  	echo mysqli_error($connection);
   }
 
-  while($data = mysql_fetch_array($result))
+  while($data = mysqli_fetch_array($result))
   {
     $entries[] = intval($data['id']);
   }

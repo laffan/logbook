@@ -13,7 +13,6 @@
 
   </head>
   <body>
-
     <div class="Logbook u-innerWidth etc-innerWidth">
 
       <div id="LogbookContent"></div>

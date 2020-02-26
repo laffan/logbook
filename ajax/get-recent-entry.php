@@ -1,5 +1,9 @@
 <?php
+ini_set('display_errors',1);
+error_reporting(E_ALL|E_STRICT);
+
 header('Access-Control-Allow-Origin: *');
+
 
 include_once("../config.php");
 include_once("../functions.php");
@@ -12,13 +16,13 @@ $query = "SELECT entries.*
 					LIMIT 1
 					";
 
-$result = mysql_query($query);
+$result = mysqli_query($connection,$query);
 
 if (false == $result) {
-	echo mysql_error();
+	echo mysqli_error($connection);
 }
 
-$data = mysql_fetch_array($result);
+$data = mysqli_fetch_array($result);
 $entries[] = $data;
 $entries = $entries[0];
 $entries['excerpt'] = excerpt($data['description'], 50);

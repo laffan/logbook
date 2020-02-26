@@ -8,15 +8,15 @@ $query = "SELECT entries.*
 					WHERE entries.id = $id
 					";
 
-	$result = mysql_query($query);
+	$result = mysqli_query($connection,$query);
 
 	if (false == $result) {
-		echo mysql_error();
+		echo mysqli_error($connection);
 	}
 
 	$entries = array();
 
-	while( $data = mysql_fetch_array($result) ) {
+	while( $data = mysqli_fetch_array($result) ) {
 		$entries[] = $data;
 	}
 
