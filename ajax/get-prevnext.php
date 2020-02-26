@@ -7,14 +7,14 @@ $returnID = null;
 $entries = array();
 
 // GET all entries.
-$entries = getAllEntryIDs();
+$entries = getAllEntryIDs( $connection );
 
 // USE $currentID and $entries to find next/prev
-$returnID = returnCurrent($currentID, $entries, $direction);
+$returnID = returnCurrent($currentID, $entries, $direction, $connection );
 
 // Return Entry Data with ID
 if ( $returnID ) {
-  $returnEntry = getEntry($returnID);
+  $returnEntry = getEntry($returnID, $connection);
   echo json_encode($returnEntry);
 }
 
@@ -27,7 +27,7 @@ if ( $returnID ) {
 /* Get Entry based on Year/Month/Day OR Id.
 */
 
-function getEntry($id) {
+function getEntry($id, $connection ) {
 	$query = "SELECT entries.*
 						FROM entries
             WHERE entries.id = $id
@@ -44,7 +44,7 @@ function getEntry($id) {
 /* returnCurrent
 /* Spits out either the next or previous entry's ID number
 */
-function returnCurrent($currentID, $entries, $direction)
+function returnCurrent($currentID, $entries, $direction, $connection)
 {
 
   $currentID = intval($currentID);
@@ -64,7 +64,7 @@ function returnCurrent($currentID, $entries, $direction)
 /* Spits out an array of All entry IDs
 */
 
-function getAllEntryIDs(){
+function getAllEntryIDs($connection){
 
   $entries = array();
 
